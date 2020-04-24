@@ -1,0 +1,4 @@
+InSys.Controller
+02/11/2020 16:59:53.120
+internal: Session Expired.
+action: CurrentUse

@@ -1,0 +1,237 @@
+﻿<div class="record">
+    <div class="record-header"></div>
+    <div class="record-body">
+        <!--Tabs-->
+        <div class="record-tab d-none d-md-block">
+            <div class="record-tab-header">
+                <span>Tabs</span>
+            </div>
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a data-target="#general" class="nav-link active" data-toggle="tab" role="tab">General</a>
+                </li>
+                <li class="nav-item">
+                    <a ng-click="loadDetail()" data-target="#detail" class="nav-link" data-toggle="tab" role="tab">Employee</a>
+                </li>
+            </ul>
+        </div>
+        <form ng-submit="saveForm()" name="form.employeemovement" novalidate autocomplete="off" class="tab-content" method="post">
+            <!--Button Group-->
+            <div class="rh-btn-grp">
+                <button class="emphasized d-none d-md-block" ng-if="MenuPrivileges.HasNew == true && IsNull(Schema.ID, 0) != 0" ng-click="newForm()" type="button"><i class="fas fa-plus"></i> New</button>
+                <button class="emphasized d-none d-md-block" type="submit" ng-if="((MenuPrivileges.HasEdit == true && IsNull(Schema.ID, 0) >= 0) || IsNull(Schema.ID, 0) == 0) && !Schema.IsPosted"><i class="fas fa-save"></i> Save</button>
+                <button class="emphasized d-none d-md-block" ng-click="PostMovement()" type="button" ng-if="!Schema.IsPosted"><i class="fas fa-thumbtack"></i> Post</button>
+
+                <!--These dropdowns will display when mobile-->
+                <!--Actions-->
+                <div class="dropdown mobile d-block d-md-none">
+                    <button class="emphasized dropdown-toggle" type="button" data-toggle="dropdown">Actions</button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <button class="dropdown-item" type="button" ng-if="MenuPrivileges.HasNew == true && IsNull(Schema.ID, 0) != 0" ng-click="newForm()">New</button>
+                        <button class="dropdown-item" type="submit" ng-if="((MenuPrivileges.HasEdit == true && IsNull(Schema.ID, 0) >= 0) || IsNull(Schema.ID, 0) == 0) && !Schema.IsPosted">Save</button>
+                        <button class="dropdown-item" type="button" ng-if="!Schema.IsPosted" ng-click="PostMovement()">Post</button>
+                    </div>
+                </div>
+                <!--Tabs-->
+                <div class="dropdown mobile d-block d-md-none" role="tablist">
+                    <button class="emphasized dropdown-toggle" type="button" data-toggle="dropdown">Tabs</button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a data-target="#general" class="nav-link active" data-toggle="tab" role="tab">General</a>
+                            </li>
+                            <li class="nav-item">
+                                <a ng-click="loadDetail()" data-target="#detail" class="nav-link" data-toggle="tab" role="tab">Employee</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!--General Tab-->
+            <div id="general" role="tabpanel" class="tab-pane fade show active">
+                <!--Form Header-->
+                <div class="rf-header">
+                    <h5>General</h5>
+                </div>
+
+                <!--Form Content-->
+                <div class="rf-body" ng-class="{'custom-scroll' : isChrome}">
+                    <div ng-if="ModuleReady == true" class="col-xl-10 col-lg-10 col-md-12 row">
+                        <!--Panel 1-->
+                        <div ng-if="!Schema.IsPosted" class="col-xl-6 col-lg-10">
+                            <br />
+                            <div class="lbl-grp">
+                                <label>Code</label>
+                                <p ng-bind="Schema.Code"></p>
+                            </div>
+                            <div class="form-group" ng-required="GetIsRequired('Description')">
+                                <label class="control-label">Description <i title="Description is required" class="fa fa-exclamation-circle"></i></label>
+                                <textarea class="form-control" name="Description" ng-model="Schema.Description" maxlength="{{GetMaxLength('Description')}}" ng-required="GetIsRequired('Description')"></textarea>
+                            </div>
+                            <div class="form-group" ng-required="GetIsRequired('EffectivityDate')">
+                                <label class="control-label">Effectivity Date <i title="Effectivity Date is required" class="fa fa-exclamation-circle"></i></label>
+                                <input class="form-control" type="text" c-label="Effectivity Date" name="EffectivityDate" ng-model="Schema.EffectivityDate" ng-required="GetIsRequired('EffectivityDate')" ng-input text-type="'date'" text-format="'MMM DD, YYYY'" />
+                            </div>
+                            <div class="form-group">
+                                <div class="read-only-checkbox">
+                                    <i class="fas" ng-class="{'fa-check-square': Schema.IsPosted, 'fa-square': !Schema.IsPosted}"></i>
+                                    <p>Posted</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-if="Schema.IsPosted" class="col-xl-6 col-lg-10">
+                            <br />
+                            <div class="lbl-grp">
+                                <label>Code</label>
+                                <p ng-bind="Schema.Code"></p>
+                            </div>
+                            <div class="lbl-grp">
+                                <label>Description</label>
+                                <p ng-bind="Schema.Description"></p>
+                            </div>
+                            <div class="lbl-grp">
+                                <label>Effectivity Date</label>
+                                <p ng-bind="FormatDate(Schema.EffectivityDate, 'MMM DD, YYYY')"></p>
+                            </div>
+                            <div class="form-group">
+                                <div class="read-only-checkbox">
+                                    <i class="fas" ng-class="{'fa-check-square': Schema.IsPosted, 'fa-square': !Schema.IsPosted}"></i>
+                                    <p>Posted</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--City Tab-->
+            <div id="detail" role="tabpanel" class="tab-pane fade">
+                <div class="rf-header">
+                    <h5>Details</h5>
+                </div>
+
+                <div class="rf-body" ng-class="{'custom-scroll' : isChrome}">
+                    <div class="detail-form">
+                        <div class="df-body list grid">
+                            <div class="emp-movement-header">
+                                <div class="smart-search" ng-if="!Schema.IsPosted">
+                                    <div class="smart-search-input">
+                                        <input class="form-control" type="text" placeholder="Search employee and press enter" name="Keyword" ng-model="MovementModel.SearchKeyword" ng-keyup="SearchEmployee($event)" ng-keydown="preventSubmit($event)" ng-keypress="preventSubmit($event)" />
+                                        <i class="fas fa-times" ng-click="clearFound()"></i>
+                                        <i ng-if="ShowLoading == true" class="fas fa-spinner fa-spin"></i>
+                                    </div>
+
+                                    <ul class="smart-search-result" ng-if="EmployeeFound.length > 0">
+                                        <li ng-style="(idx == foundIdx) && {'background-color':'#3498db', 'color':'#fff'}" ng-repeat="(idx, d) in EmployeeFound" ng-click="AddMovementEmployee(d)" ng-bind-html="d.Template"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="emp-movement-container">
+                                <div class="movement-employee-list">
+                                    <div class="search">
+                                        <i class="fas fa-search"></i>
+                                        <input class="form-control" type="text" placeholder="Search employee"/>
+                                    </div>
+                                    <div class="employee-container">
+                                        <div class="employee-item" ng-repeat="d in SelectedEmployee">
+                                            <div class="employee-itm-name" ng-bind="d.Name || d.Employee" ng-click="loadEmployeeMovement(d)"></div>
+                                            <i ng-if="!Schema.IsPosted" class="fas fa-times" ng-click="RemoveEmployee(d)"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="movement-type-container">
+                                    <div class="movement-btn-grp">
+                                        <button class="btn" ng-if="!Schema.IsPosted && CurrentEmployee != null" ng-click="AddMovementType()" type="button">Add Movement</button>
+                                    </div>
+                                    <div class="movement-type-holder">
+                                        <div class="movement-type-item" ng-if="!Schema.IsPosted" ng-repeat="d in CurrentEmployee.MovementType">
+                                            <div class="movement-type-header">
+                                                <select ng-change="getSource(d)" c-label="Movement Type" name="ID_MovementType" class="form-control" ng-model="d.ID_MovementType" ng-required="true">
+                                                    <option ng-value="dd.ID" ng-repeat="dd in MovementExist(d)" ng-bind="dd.Name"></option>
+                                                </select>
+                                                <i ng-if="!Schema.IsPosted" class="fas fa-times" ng-click="RemoveMovement(d)"></i>
+                                            </div>
+                                            <!--salary increase-->
+                                            <div class="form-group" ng-if="d.ID_MovementType == 1">
+                                                <label class="control-label">Amount</label>
+                                                <input class="form-control" placeholder="Amount" type="text" c-label="Value" name="NewValue" ng-required="true" maxlength="18" ng-model="d.NewValue" ng-input text-type="'decimal'" />
+                                            </div>
+                                            <!--branch transfer-->
+                                            <div class="form-group" ng-if="d.ID_MovementType == 4">
+                                                <label class="control-label">New Branch</label>
+                                                <div is-grid="true" is-required="true" insys-lookup lookup-options="branchTransferOptions" lookup-data="{'model': d,'targetValue': 'ID', 'targetDisplay': 'Name', 'valueContainer': 'NewValue', 'displayContainer': 'NewBranch', 'label': 'New Branch'}"></div>
+                                            </div>
+                                            <div ng-if="d.ID_MovementType == 4">
+                                                <label class="lbl-old" ng-bind="'Old Branch: ' + d.OldBranch"></label>
+                                            </div>
+
+                                            <!--change department-->
+                                            <div class="form-group" ng-if="d.ID_MovementType == 6">
+                                                <label class="control-label">New Department</label>
+                                                <div is-grid="true" is-required="true" insys-lookup lookup-options="departmentTransferOptions" lookup-data="{'model': d,'targetValue': 'ID', 'targetDisplay': 'Name', 'valueContainer': 'NewValue', 'displayContainer': 'NewDepartment', 'label': 'New Department'}"></div>
+                                            </div>
+                                            <div ng-if="d.ID_MovementType == 6">
+                                                <label class="lbl-old" ng-bind="'Old Department: ' + d.OldDepartment"></label>
+                                            </div>
+
+                                            <!--change designation-->
+                                            <div class="form-group" ng-if="d.ID_MovementType == 7">
+                                                <label class="control-label">New Designation/Position</label>
+                                                <div is-grid="true" is-required="true" insys-lookup lookup-options="positionTransferOptions" lookup-data="{'model': d,'targetValue': 'ID', 'targetDisplay': 'Name', 'valueContainer': 'NewValue', 'displayContainer': 'NewDesignation', 'label': 'New Designation/Position'}"></div>
+                                            </div>
+                                            <div ng-if="d.ID_MovementType == 7">
+                                                <label class="lbl-old" ng-bind="'Old Designation/Position: ' + d.OldDesignation"></label>
+                                            </div>
+                                            <!--change status-->
+                                            <div class="form-group" ng-if="d.ID_MovementType == 8">
+                                                <label class="control-label">New Employee Status</label>
+                                                <select c-label="Employee Status" name="ID_EmployeeStatus" class="form-control" ng-model="d.NewValue" ng-required="true">
+                                                    <option ng-value="dd.ID.toString()" ng-repeat="dd in EmployeeStatusLookup" ng-bind="dd.Name"></option>
+                                                </select>
+                                            </div>
+                                            <div ng-if="d.ID_MovementType == 8">
+                                                <label class="lbl-old" ng-bind="'Old Employee Status: ' d.OldEmployeeStatus"></label>
+                                            </div>
+                                            <!--change leave parameter-->
+                                            <div class="form-group" ng-if="d.ID_MovementType == 13">
+                                                <label class="control-label">New Leave Parameter</label>
+                                                <select c-label="Leave Parameter" name="ID_LeaveParameter" class="form-control" ng-model="d.NewValue" ng-required="true">
+                                                    <option ng-value="dd.ID.toString()" ng-repeat="dd in LeaveParameterLookup" ng-bind="dd.Name"></option>
+                                                </select>
+                                            </div>
+                                            <div ng-if="d.ID_MovementType == 13">
+                                                <label class="lbl-old" ng-bind="'Old Leave Parameter: ' + d.OldLeaveParameter"></label>
+                                            </div>
+                                        </div>
+                                        <div class="movement-type-item" ng-if="Schema.IsPosted" ng-repeat="d in CurrentEmployee.MovementType">
+                                            <div>
+                                                <div class="movement-grp">
+                                                    <label class="movement-type-name" ng-bind="GetValueFromArray(MovementSource, 'ID', d.ID_MovementType) == null ? 'N/A': GetValueFromArray(MovementSource, 'ID', d.ID_MovementType).Name"></label>
+                                                    <p ng-if="d.ID_MovementType == 1" ng-bind="d.NewValue"></p>
+                                                    <p class="movement-from" ng-if="d.ID_MovementType == 4" ng-bind="'From ' + IsNull(d.OldBranch, '')"></p>
+                                                    <p class="movement-to" ng-if="d.ID_MovementType == 4" ng-bind="'To ' + d.NewBranch"></p>
+                                                    <p class="movement-from" ng-if="d.ID_MovementType == 6" ng-bind="'From ' + IsNull(d.OldDepartment, '')"></p>
+                                                    <p class="movement-to" ng-if="d.ID_MovementType == 6" ng-bind="'To ' + d.NewDepartment"></p>
+                                                    <p class="movement-from" ng-if="d.ID_MovementType == 7" ng-bind="'From ' + IsNull(d.OldDesignation, '')"></p>
+                                                    <p class="movement-to" ng-if="d.ID_MovementType == 7" ng-bind="'To ' + d.NewDesignation"></p>
+                                                    <p class="movement-from" ng-if="d.ID_MovementType == 8" ng-bind="'From ' + IsNull(d.OldEmployeeStatus, '')"></p>
+                                                    <p class="movement-to" ng-if="d.ID_MovementType == 8" ng-bind="'To ' + (GetValueFromArray(EmployeeStatusLookup, 'ID', d.NewValue) == null ? 'N/A': GetValueFromArray(EmployeeStatusLookup, 'ID', d.NewValue).Name)"></p>
+                                                    <p class="movement-from" ng-if="d.ID_MovementType == 13" ng-bind="'From ' + IsNull(d.OldLeaveParameter, '')"></p>
+                                                    <p class="movement-to" ng-if="d.ID_MovementType == 13" ng-bind="'To ' + (GetValueFromArray(LeaveParameterLookup, 'ID', d.NewValue) == null ? 'N/A': GetValueFromArray(LeaveParameterLookup, 'ID', d.NewValue).Name)"></p>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <i ng-if="!Schema.IsPosted" class="fas fa-times" ng-click="RemoveMovement(d)"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,6 @@
+InSys.ITI.TestModule.dll
+02/11/2020 14:05:35.807
+InSys.ITI.Models.Models.tUsers: Cannot deserialize the current JSON array (e.g. [1,2,3]) into type 'InSys.Helper.TableOptions' because the type requires a JSON object (e.g. {"name":"value"}) to deserialize correctly.
+To fix this error either change the JSON to a JSON object (e.g. {"name":"value"}) or change the deserialized type to an array or a type that implements a collection interface (e.g. ICollection, IList) like List<T> that can be deserialized from a JSON array. JsonArrayAttribute can also be added to the type to force it to deserialize from a JSON array.
+Path '', line 1, position 1.
+action: DeleteRecor

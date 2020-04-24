@@ -1,0 +1,5 @@
+InSys.ITI.Login
+02/10/2020 09:59:12.266
+system: The route "/bundles/Base-angular-scripts-1" was already specified
+Parameter name: route
+action: ServerSessio

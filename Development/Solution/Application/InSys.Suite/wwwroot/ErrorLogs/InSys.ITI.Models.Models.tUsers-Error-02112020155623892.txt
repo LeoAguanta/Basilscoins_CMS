@@ -1,0 +1,4 @@
+InSys.ITI.TestModule.dll
+02/11/2020 15:56:23.892
+InSys.ITI.Models.Models.tUsers: Cannot create a DbSet for 'tLookUpData' because this type is not included in the model for the context.
+action: LoadLooku

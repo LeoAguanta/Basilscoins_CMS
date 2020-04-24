@@ -1,0 +1,4 @@
+InSys.Controller
+02/11/2020 11:52:45.586
+internal: An item with the same key has already been added. Key: X-Frame-Options
+action: ThrowAddingDuplicateWithKeyArgumentExceptio

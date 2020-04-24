@@ -1,0 +1,4 @@
+InSys.ITI.TestModule.dll
+02/11/2020 15:20:37.068
+InSys.ITI.Models.Models.tUsers: Cannot create a DbQuery for 'vTestModule' because it is not a query type. Use the DbContext.Set method to create a DbSet instead.
+action: LoadFor

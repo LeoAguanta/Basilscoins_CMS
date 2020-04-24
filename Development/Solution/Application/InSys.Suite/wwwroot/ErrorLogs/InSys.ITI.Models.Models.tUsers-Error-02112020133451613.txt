@@ -1,0 +1,5 @@
+InSys.ITI.TestModule.dll
+02/11/2020 13:34:51.613
+InSys.ITI.Models.Models.tUsers: Incorrect syntax near the keyword 'select'.
+Incorrect syntax near ')'.
+action: LoadLis

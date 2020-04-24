@@ -1,0 +1,5 @@
+InSys.ITI.Login
+02/11/2020 17:00:25.803
+system: The route "/bundles/Base-controller-scripts-1" was already specified
+Parameter name: route
+action: ServerSessio

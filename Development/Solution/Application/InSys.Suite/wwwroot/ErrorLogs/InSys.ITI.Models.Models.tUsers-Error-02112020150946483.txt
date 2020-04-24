@@ -1,0 +1,4 @@
+InSys.ITI.TestModule.dll
+02/11/2020 15:09:46.484
+InSys.ITI.Models.Models.tUsers: Cannot create a DbSet for 'vTestModule' because this type is not included in the model for the context.
+action: LoadFor

@@ -1,0 +1,4 @@
+InSys.Controller
+02/10/2020 10:00:52.401
+internal: The process cannot access the file 'C:\Users\laguanta.HO\Documents\IntellismartProjects\InSys.Suite\Development\Solution\Application\InSys.Suite\wwwroot\ErrorLogs\InSys.ITI.Models.Models.tUsers-Error-02102020100052280.txt' because it is being used by another process.
+action: LogErro

@@ -1,0 +1,4 @@
+InSys.Helpers
+02/11/2020 18:51:09.581
+internal: A connection was successfully established with the server, but then an error occurred during the login process. (provider: TCP Provider, error: 0 - An existing connection was forcibly closed by the remote host.)
+action: CurrentUse
